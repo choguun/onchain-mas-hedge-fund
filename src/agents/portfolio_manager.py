@@ -59,7 +59,7 @@ def portfolio_management_agent(state: AgentState):
     prompt = template.invoke(
         {
             "technical_signal": analyst_signals["technical_analyst_agent"]["signal"],
-            # "sentiment_signal": analyst_signals["sentiment_agent"]["signal"],
+            "sentiment_signal": analyst_signals["sentiment_agent"]["signal"],
             "max_position_size": analyst_signals["risk_management_agent"]["max_position_size"],
             "portfolio_cash": f"{portfolio['cash']:.2f}",
             "portfolio_stock": portfolio["stock"],

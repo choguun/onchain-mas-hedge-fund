@@ -67,16 +67,16 @@ def start(state: AgentState):
 
 workflow.add_node("start_node", start)
 workflow.add_node("technical_analyst_agent", technical_analyst_agent)
-# workflow.add_node("sentiment_agent", sentiment_agent)
+workflow.add_node("sentiment_agent", sentiment_agent)
 workflow.add_node("risk_management_agent", risk_management_agent)
 workflow.add_node("portfolio_management_agent", portfolio_management_agent)
 
 # Define the workflow
 workflow.set_entry_point("start_node")
 workflow.add_edge("start_node", "technical_analyst_agent")
-# workflow.add_edge("start_node", "sentiment_agent")
+workflow.add_edge("start_node", "sentiment_agent")
 workflow.add_edge("technical_analyst_agent", "risk_management_agent")
-# workflow.add_edge("sentiment_agent", "risk_management_agent")
+workflow.add_edge("sentiment_agent", "risk_management_agent")
 workflow.add_edge("risk_management_agent", "portfolio_management_agent")
 workflow.add_edge("portfolio_management_agent", END)
 

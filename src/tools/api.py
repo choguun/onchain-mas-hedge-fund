@@ -251,3 +251,78 @@ def crypto_ohlcv_to_df(ohlcv_data: List[Dict[str, Any]]) -> pd.DataFrame:
     df.set_index('Date', inplace=True)
     df.sort_index(inplace=True)
     return df
+
+def get_sentiment_data(
+    ticker: str,
+    start_date: str,
+    end_date: str
+) -> List[Dict[str, Any]]:
+    """Mock sentiment data for demonstration"""
+    # Mock data for sentiment scores
+    mock_data = [
+        {
+            "date": "2024-03-01",
+            "sentiment_score": 0.65,
+            "volume": 1200,
+            "positive_mentions": 800,
+            "negative_mentions": 300,
+            "neutral_mentions": 100,
+            "source": "social_media"
+        },
+        {
+            "date": "2024-03-02",
+            "sentiment_score": 0.72,
+            "volume": 1500,
+            "positive_mentions": 1000,
+            "negative_mentions": 350,
+            "neutral_mentions": 150,
+            "source": "social_media"
+        },
+        {
+            "date": "2024-03-03",
+            "sentiment_score": 0.58,
+            "volume": 1800,
+            "positive_mentions": 900,
+            "negative_mentions": 700,
+            "neutral_mentions": 200,
+            "source": "social_media"
+        },
+        {
+            "date": "2024-03-04",
+            "sentiment_score": 0.81,
+            "volume": 2200,
+            "positive_mentions": 1600,
+            "negative_mentions": 400,
+            "neutral_mentions": 200,
+            "source": "social_media"
+        },
+        {
+            "date": "2024-03-05",
+            "sentiment_score": 0.75,
+            "volume": 1900,
+            "positive_mentions": 1300,
+            "negative_mentions": 450,
+            "neutral_mentions": 150,
+            "source": "social_media"
+        }
+    ]
+    
+    return mock_data
+
+def sentiment_to_df(sentiment_data: List[Dict[str, Any]]) -> pd.DataFrame:
+    """Convert sentiment data to DataFrame."""
+    df = pd.DataFrame(sentiment_data)
+    df['Date'] = pd.to_datetime(df['date'])
+    df.set_index('Date', inplace=True)
+    df.drop('date', axis=1, inplace=True)
+    df.sort_index(inplace=True)
+    return df
+
+def calculate_sentiment_signal(sentiment_data: List[Dict[str, Any]]) -> float:
+    """Calculate sentiment signal from sentiment data."""
+    if not sentiment_data:
+        return 0.0
+    # Get most recent sentiment score
+    latest_sentiment = sentiment_data[0]["sentiment_score"]
+    # Convert to signal between -1 and 1
+    return (latest_sentiment - 0.5) * 2
