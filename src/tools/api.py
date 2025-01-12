@@ -160,40 +160,77 @@ def get_crypto_ohlcv(
     interval: str = 'daily',
     count: int = 500
 ) -> List[Dict[str, Any]]:
-    """
-    Fetch cryptocurrency OHLCV data from CoinMarketCap API.
+    """Mock OHLCV data for demonstration"""
+    # Mock data for BTC prices
+    mock_data = [
+        {
+            "timestamp": "2024-03-01T00:00:00.000Z",
+            "quote": {
+                "USD": {
+                    "open": 62000.0,
+                    "high": 63500.0,
+                    "low": 61800.0,
+                    "close": 63000.0,
+                    "volume": 25000000000,
+                    "market_cap": 1230000000000
+                }
+            }
+        },
+        {
+            "timestamp": "2024-03-02T00:00:00.000Z",
+            "quote": {
+                "USD": {
+                    "open": 63000.0,
+                    "high": 64800.0,
+                    "low": 62900.0,
+                    "close": 64500.0,
+                    "volume": 28000000000,
+                    "market_cap": 1250000000000
+                }
+            }
+        },
+        {
+            "timestamp": "2024-03-03T00:00:00.000Z",
+            "quote": {
+                "USD": {
+                    "open": 64500.0,
+                    "high": 67000.0,
+                    "low": 64200.0,
+                    "close": 66800.0,
+                    "volume": 32000000000,
+                    "market_cap": 1280000000000
+                }
+            }
+        },
+        {
+            "timestamp": "2024-03-04T00:00:00.000Z",
+            "quote": {
+                "USD": {
+                    "open": 66800.0,
+                    "high": 69000.0,
+                    "low": 66500.0,
+                    "close": 68500.0,
+                    "volume": 35000000000,
+                    "market_cap": 1320000000000
+                }
+            }
+        },
+        {
+            "timestamp": "2024-03-05T00:00:00.000Z",
+            "quote": {
+                "USD": {
+                    "open": 68500.0,
+                    "high": 71000.0,
+                    "low": 68200.0,
+                    "close": 70800.0,
+                    "volume": 38000000000,
+                    "market_cap": 1350000000000
+                }
+            }
+        }
+    ]
     
-    Args:
-        contract_address: Contract address (e.g., '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640')
-        start_date: Start date in YYYY-MM-DD format
-        end_date: End date in YYYY-MM-DD format
-        interval: Time interval ('1m','5m','15m','30m','1h','4h','8h','12h','daily','weekly','monthly')
-        count: Number of data points to return (max 500)
-    """
-    headers = {"X-CMC_PRO_API_KEY": os.environ.get("COINMARKETCAP_API_KEY")}
-    url = (
-        "https://pro-api.coinmarketcap.com/v2/cryptocurrency/ohlcv/historical"
-        f"?contract_address={contract_address}"
-        f"&time_period={interval}"
-        f"&time_start={start_date}"
-        f"&time_end={end_date}"
-        f"&count={count}"
-        "&convert=USD"
-        "&skip_invalid=true"
-    )
-    
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        raise Exception(
-            f"Error fetching crypto data: {response.status_code} - {response.text}"
-        )
-    
-    data = response.json()
-    quotes = data.get("data", {}).get("quotes", [])
-    if not quotes:
-        raise ValueError(f"No OHLCV data returned for contract {contract_address}")
-    
-    return quotes
+    return mock_data
 
 def crypto_ohlcv_to_df(ohlcv_data: List[Dict[str, Any]]) -> pd.DataFrame:
     """Convert CoinMarketCap OHLCV data to DataFrame."""
