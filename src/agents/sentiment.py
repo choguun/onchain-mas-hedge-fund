@@ -5,6 +5,7 @@ import numpy as np
 import json
 
 from tools.api import get_insider_trades
+from tools.twitter import get_mentions
 
 ##### Sentiment Agent #####
 
